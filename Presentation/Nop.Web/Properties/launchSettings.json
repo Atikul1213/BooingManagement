@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Nop.Web": {
+      "commandName": "Project",
+      "launchBrowser": false,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:3164;http://localhost:3165"
+    }
+  }
+}
