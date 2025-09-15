@@ -1,0 +1,16 @@
+{
+  "Group": "Nop-Station",
+  "FriendlyName": "Nop-Station Booking Management",
+  "SystemName": "NopStation.Plugin.Widgets.BookingManagement",
+  "Version": "4.80.1.0",
+  "SupportedVersions": [
+    "4.80"
+  ],
+  "Author": "Nop-Station Team",
+  "DisplayOrder": 1,
+  "FileName": "NopStation.Plugin.Widgets.BookingManagement.dll",
+  "Description": "This plugin allows to booking product.",
+  "DependsOnSystemNames": [
+    "NopStation.Core"
+  ]
+}

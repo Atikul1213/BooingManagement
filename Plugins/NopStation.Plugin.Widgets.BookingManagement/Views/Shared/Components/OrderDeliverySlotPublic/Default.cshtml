@@ -1,0 +1,12 @@
+﻿@model OrderDeliveryDetailsModel
+
+<div class="card">
+    <ul class="order-overview-content">
+        <li>
+            @T("NopStation.BookingManagement.OrderDeliverySlot.Fields.TimeSlot"): @Model.DeliverySlot
+        </li>
+        <li>
+            @T("NopStation.BookingManagement.OrderDeliverySlot.Fields.ShippingDate"): @Model.ShippingDate
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,9 @@
+﻿@model BookingProductModel
+@{
+    const string hideBookingManagementAttributeName = "BookingManagement.HideEnableBlock";
+    var hideBookingManagementlock = await genericAttributeService.GetAttributeAsync<bool>(await workContext.GetCurrentCustomerAsync(), hideBookingManagementAttributeName);
+}
+
+<nop-card asp-name="booking-product" asp-icon="fas fa-info" asp-title="@T("Admin.NopStation.BookingManagement.Tab.Enable")" asp-hide-block-attribute-name="@hideBookingManagementAttributeName" asp-hide="@hideBookingManagementlock" asp-advanced="true">
+    @await Html.PartialAsync("_BookingProduct.cshtml", Model)
+</nop-card>
