@@ -361,3 +361,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Presentation/Nop.Web/Plugins/NopStation.Core
+/Presentation/Nop.Web/Plugins/NopStation.Plugin.Widgets.BookingManagement
+/Presentation/Nop.Web/App_Data/plugins.json
+/Presentation/Nop.Web/wwwroot/images/thumbs
+/Presentation/Nop.Web/App_Data/plugins.json
