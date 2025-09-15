@@ -9,7 +9,7 @@ using Nop.Web.Framework.Models;
 using NopStation.Plugin.Widgets.BookingManagement.Domains;
 using NopStation.Plugin.Widgets.BookingManagement.Services;
 
-namespace NopStation.Plugin.Misc.FacebookShop.Services;
+namespace NopStation.Plugin.Widgets.BookingManagement.Infrastructure;
 
 public class EventConsumer : IConsumer<ModelReceivedEvent<BaseNopModel>>
 {
@@ -64,13 +64,9 @@ public class EventConsumer : IConsumer<ModelReceivedEvent<BaseNopModel>>
             bookingProduct.BookByTimeSlot = Convert.ToBoolean(returnedValue);
 
         if (isNew)
-        {
             await _bookingProductService.InsertBookingProductAsync(bookingProduct);
-        }
         else
-        {
             await _bookingProductService.UpdateBookingProductAsync(bookingProduct);
-        }
 
     }
 
@@ -80,7 +76,6 @@ public class EventConsumer : IConsumer<ModelReceivedEvent<BaseNopModel>>
 
     public async Task HandleEventAsync(ModelReceivedEvent<BaseNopModel> eventMessage)
     {
-        //get entity by received model
         var entity = eventMessage.Model switch
         {
             ProductModel productModel => await _productService.GetProductByIdAsync(productModel.Id),
@@ -89,16 +84,14 @@ public class EventConsumer : IConsumer<ModelReceivedEvent<BaseNopModel>>
         if (entity == null)
             return;
 
-        //var isShopItemExists = await _bookingProductService.GetShopItemByProductIdAsync(entity.Id);
-        //if (isShopItemExists == null)
-        //{
-        //    var aShopItem = new ShopItem { ProductId = entity.Id };
-        //    await CreateOrUpdateShopItemAsync(aShopItem, true);
-        //}
-        //else
-        //{
-        //    await CreateOrUpdateShopItemAsync(isShopItemExists);
-        //}
+        var isBookingProductExists = await _bookingProductService.GetBookingProductByProductIdAsync(entity.Id);
+        if (isBookingProductExists == null)
+        {
+            var bookingProduct = new BookingProduct { ProductId = entity.Id };
+            await CreateOrUpdateBookingProductAsync(bookingProduct, true);
+        }
+        else
+            await CreateOrUpdateBookingProductAsync(isBookingProductExists);
     }
 
     #endregion

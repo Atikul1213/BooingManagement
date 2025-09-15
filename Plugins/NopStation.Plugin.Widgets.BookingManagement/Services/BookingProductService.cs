@@ -32,6 +32,12 @@ public class BookingProductService : IBookingProductService
         return await _bookingProductRepository.GetByIdAsync(bookingProductId);
     }
 
+    public async Task<BookingProduct> GetBookingProductByProductIdAsync(int productId)
+    {
+        ArgumentNullException.ThrowIfNullOrEmpty(nameof(productId));
+        return await _bookingProductRepository.Table.FirstOrDefaultAsync(bp => bp.ProductId == productId);
+    }
+
     public async Task InsertBookingProductAsync(BookingProduct bookingProduct)
     {
         ArgumentNullException.ThrowIfNull(bookingProduct);

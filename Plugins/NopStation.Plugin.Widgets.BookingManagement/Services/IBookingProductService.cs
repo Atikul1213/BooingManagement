@@ -10,4 +10,5 @@ public interface IBookingProductService
     Task UpdateBookingProductAsync(BookingProduct bookingProduct);
 
     Task<BookingProduct> GetBookingProductByIdAsync(int bookingProductId);
+    Task<BookingProduct> GetBookingProductByProductIdAsync(int productId);
 }

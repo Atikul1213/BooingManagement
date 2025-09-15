@@ -22,3 +22,16 @@
     </div>
      
 </div>
+
+<script asp-location="Footer">
+    $(document).ready(function () {
+        $("#@Html.IdFor(model => model.BookByDaily)").on('click', function(){
+            $('#@Html.IdFor(model => model.BookByTimeSlot)').prop('checked', false).trigger('change');
+            $('#@Html.IdFor(model => model.BookByDaily)').prop('checked', true).trigger('change');
+        });
+        $("#@Html.IdFor(model => model.BookByTimeSlot)").on('click', function(){
+            $('#@Html.IdFor(model => model.BookByDaily)').prop('checked', false).trigger('change');
+            $('#@Html.IdFor(model => model.BookByTimeSlot)').prop('checked', true).trigger('change');
+        });
+    });
+</script>

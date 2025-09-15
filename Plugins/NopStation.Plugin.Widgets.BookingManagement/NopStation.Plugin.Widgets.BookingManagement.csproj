@@ -148,5 +148,8 @@
   <Target Name="NopTarget" AfterTargets="Build">
     <!-- Delete unnecessary libraries from plugins path -->
     <MSBuild Projects="@(ClearPluginAssemblies)" Properties="PluginPath=$(MSBuildProjectDirectory)\$(OutDir)" Targets="NopClear" />
+    <!-- Delete extra folders and files from plugin output directory -->
+    <RemoveDir Directories="$(OutDir)\refs;$(OutDir)\ref;$(OutDir)\runtimes" />
+    <Delete Files="$(OutDir)\$(AssemblyName).deps.json;$(OutDir)\$(AssemblyName).pdb;$(OutDir)\$(AssemblyName).staticwebassets.runtime.json" />
   </Target>
 </Project>

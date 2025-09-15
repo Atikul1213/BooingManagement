@@ -30,8 +30,8 @@
         <div class="container-fluid">
             <div class="form-horizontal">
                 @await Component.InvokeAsync("StoreScopeConfiguration")
-                <nop-cards id="scheduler-panels">
-                    <nop-card asp-name="scheduler-info" asp-icon="fas fa-info" asp-title="@T("Admin.NopStation.BookingManagement.Configuration.Settings")" asp-hide-block-attribute-name="@hideInfoBlockAttributeName" asp-hide="@hideInfoBlock" asp-advanced="false">@await Html.PartialAsync("_Configure.Info", Model)</nop-card>
+                <nop-cards id="booking-panels">
+                    <nop-card asp-name="booking-info" asp-icon="fas fa-info" asp-title="@T("Admin.NopStation.BookingManagement.Configuration.Settings")" asp-hide-block-attribute-name="@hideInfoBlockAttributeName" asp-hide="@hideInfoBlock" asp-advanced="false">@await Html.PartialAsync("_Configure.Info", Model)</nop-card>
                 </nop-cards>
             </div>
         </div>

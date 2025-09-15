@@ -5,6 +5,7 @@ using Nop.Services.Security;
 using Nop.Web.Areas.Admin.Models.Catalog;
 using NopStation.Plugin.Misc.Core.Components;
 using NopStation.Plugin.Widgets.BookingManagement.Areas.Admin.Models;
+using NopStation.Plugin.Widgets.BookingManagement.Services;
 
 namespace NopStation.Plugin.Widgets.BookingManagement.Areas.Admin.Components;
 public class BookingProductsViewComponent : NopStationViewComponent
@@ -14,6 +15,7 @@ public class BookingProductsViewComponent : NopStationViewComponent
     private readonly IPermissionService _permissionService;
     private readonly IWidgetPluginManager _widgetPluginManager;
     private readonly IProductService _productService;
+    private readonly IBookingProductService _bookingProductService;
 
     #endregion
 
@@ -21,11 +23,13 @@ public class BookingProductsViewComponent : NopStationViewComponent
 
     public BookingProductsViewComponent(IPermissionService permissionService,
         IWidgetPluginManager widgetPluginManager,
-        IProductService productService)
+        IProductService productService,
+        IBookingProductService bookingProductService)
     {
         _permissionService = permissionService;
         _widgetPluginManager = widgetPluginManager;
         _productService = productService;
+        _bookingProductService = bookingProductService;
     }
 
     #endregion
@@ -43,11 +47,19 @@ public class BookingProductsViewComponent : NopStationViewComponent
         if (product == null || product.Deleted)
             return Content("");
 
+        var isBookingProductExists = await _bookingProductService.GetBookingProductByProductIdAsync(productModel.Id);
+
         var model = new BookingProductModel
         {
             ProductId = product.Id,
-
         };
+
+        if (isBookingProductExists != null)
+        {
+            model.Id = isBookingProductExists.Id;
+            model.BookByDaily = isBookingProductExists.BookByDaily;
+            model.BookByTimeSlot = isBookingProductExists.BookByTimeSlot;
+        }
 
         return View(model);
     }
