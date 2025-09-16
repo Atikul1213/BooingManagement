@@ -106,6 +106,10 @@ public class BookingManagementPlugin : BasePlugin, IWidgetPlugin, INopStationPlu
             ["Admin.NopStation.BookingManagement.Menu.BookingManagement"] = "Booking management",
             ["Admin.NopStation.BookingManagement.Menu.Configuration"] = "Configuration",
             ["Admin.NopStation.BookingManagement.Menu.BookingCapacities"] = "Booking capacities",
+            ["Admin.NopStation.BookingManagement.Configuration.Fields.BookByDailyAttributeId"] = "Book by daily attribute id",
+            ["Admin.NopStation.BookingManagement.Configuration.Fields.BookByDailyAttributeId.Hint"] = "Select book by daily attribute id",
+            ["Admin.NopStation.BookingManagement.Configuration.Fields.BookBySlotAttributeId"] = "Book by slot attribute id",
+            ["Admin.NopStation.BookingManagement.Configuration.Fields.BookBySlotAttributeId.Hint"] = "Select book by slot attribute id",
 
 
         };

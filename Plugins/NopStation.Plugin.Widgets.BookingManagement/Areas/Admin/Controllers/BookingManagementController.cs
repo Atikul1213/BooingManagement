@@ -65,6 +65,8 @@ public class BookingManagementController : NopStationAdminController
         settings = model.ToSettings(settings);
 
         await _settingService.SaveSettingOverridablePerStoreAsync(settings, x => x.EnableBookingManagement, model.EnableBookingManagement_OverrideForStore, storeScope, false);
+        await _settingService.SaveSettingOverridablePerStoreAsync(settings, x => x.BookByDailyAttributeId, model.BookByDailyAttributeId_OverrideForStore, storeScope, false);
+        await _settingService.SaveSettingOverridablePerStoreAsync(settings, x => x.BookBySlotAttributeId, model.BookBySlotAttributeId_OverrideForStore, storeScope, false);
 
         await _settingService.ClearCacheAsync();
         _notificationService.SuccessNotification(await _localizationService.GetResourceAsync("Admin.Configuration.Updated"));

@@ -5,4 +5,6 @@ namespace NopStation.Plugin.Widgets.BookingManagement;
 public class BookingManagementSettings : ISettings
 {
     public bool EnableBookingManagement { get; set; }
+    public int BookByDailyAttributeId { get; set; }
+    public int BookBySlotAttributeId { get; set; }
 }

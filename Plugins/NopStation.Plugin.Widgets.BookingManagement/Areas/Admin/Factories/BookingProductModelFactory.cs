@@ -1,4 +1,6 @@
-﻿using Nop.Core;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Nop.Core;
+using Nop.Services.Catalog;
 using Nop.Services.Configuration;
 using Nop.Web.Areas.Admin.Infrastructure.Mapper.Extensions;
 using NopStation.Plugin.Widgets.BookingManagement.Areas.Admin.Models;
@@ -10,18 +12,41 @@ public class BookingProductModelFactory : IBookingProductModelFactory
 
     private readonly ISettingService _settingService;
     private readonly IStoreContext _storeContext;
+    private readonly IProductAttributeService _productAttributeService;
 
     #endregion
 
     #region Ctor
 
-    public BookingProductModelFactory(
-        ISettingService settingService,
-        IStoreContext storeContext)
+    public BookingProductModelFactory(ISettingService settingService,
+        IStoreContext storeContext,
+        IProductAttributeService productAttributeService)
     {
         _settingService = settingService;
         _storeContext = storeContext;
+        _productAttributeService = productAttributeService;
     }
+
+    #endregion
+
+    #region Utilities
+
+    private async Task<IList<SelectListItem>> GetProductAttibuteSelectListAsync()
+    {
+        var availableAttributes = await _productAttributeService.GetAllProductAttributesAsync();
+
+        var list = new List<SelectListItem>();
+        foreach (var attribute in availableAttributes)
+        {
+            list.Add(new SelectListItem()
+            {
+                Value = attribute.Id.ToString(),
+                Text = attribute.Name
+            });
+        }
+        return list;
+    }
+
 
     #endregion
 
@@ -35,6 +60,13 @@ public class BookingProductModelFactory : IBookingProductModelFactory
         var model = settings.ToSettingsModel<ConfigurationModel>();
 
         model.ActiveStoreScopeConfiguration = storeId;
+        model.AvailableProductAttributes = await GetProductAttibuteSelectListAsync();
+
+        model.AvailableProductAttributes.Insert(0, new SelectListItem()
+        {
+            Value = "0",
+            Text = "Select product attribute"
+        });
 
         if (storeId <= 0)
             return model;

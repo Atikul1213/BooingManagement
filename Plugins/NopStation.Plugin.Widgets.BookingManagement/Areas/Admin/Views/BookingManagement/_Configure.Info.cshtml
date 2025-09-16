@@ -2,12 +2,30 @@
 
 <div class="card-body">
     <div class="form-group row">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <nop-override-store-checkbox asp-for="EnableBookingManagement_OverrideForStore" asp-input="EnableBookingManagement" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
             <nop-label asp-for="EnableBookingManagement" />
         </div>
-        <div class="col-md-8">
+        <div class="col-md-5">
             <nop-editor asp-for="EnableBookingManagement" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="BookByDailyAttributeId_OverrideForStore" asp-input="BookByDailyAttributeId" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="BookByDailyAttributeId" />
+        </div>
+        <div class="col-md-5">
+            <nop-select asp-for="BookByDailyAttributeId" asp-items="@Model.AvailableProductAttributes" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="BookBySlotAttributeId_OverrideForStore" asp-input="BookBySlotAttributeId" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="BookBySlotAttributeId" />
+        </div>
+        <div class="col-md-5">
+            <nop-select asp-for="BookBySlotAttributeId" asp-items="@Model.AvailableProductAttributes" />
         </div>
     </div>
 </div>
