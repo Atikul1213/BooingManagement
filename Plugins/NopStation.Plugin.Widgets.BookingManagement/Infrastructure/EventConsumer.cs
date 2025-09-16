@@ -92,6 +92,8 @@ public class EventConsumer : IConsumer<ModelReceivedEvent<BaseNopModel>>
         }
         else
             await CreateOrUpdateBookingProductAsync(isBookingProductExists);
+
+
     }
 
     #endregion
