@@ -8,6 +8,8 @@ public class BaseNameCompatibility : INameCompatibility
     public Dictionary<Type, string> TableNames => new Dictionary<Type, string>
     {
         { typeof(BookingProduct), "NS_BookingProduct" },
+        { typeof(DailyBookingProduct), "NS_DailyBookingProduct" },
+        { typeof(SlotBookingProduct), "NS_SlotBookingProduct" },
 
     };
 
