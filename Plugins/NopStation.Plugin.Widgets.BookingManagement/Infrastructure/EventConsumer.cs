@@ -20,6 +20,9 @@ public class EventConsumer : IConsumer<ModelReceivedEvent<BaseNopModel>>
     private readonly ILanguageService _languageService;
     private readonly ILocalizedEntityService _localizedEntityService;
     private readonly IBookingProductService _bookingProductService;
+    private readonly IProductAttributeService _productAttributeService;
+    private readonly BookingManagementSettings _bookingManagementSettings;
+    private readonly IProductAttributeParser _productAttributeParser;
 
     #endregion
 
@@ -29,13 +32,19 @@ public class EventConsumer : IConsumer<ModelReceivedEvent<BaseNopModel>>
         IHttpContextAccessor httpContextAccessor,
         ILanguageService languageService,
         ILocalizedEntityService localizedEntityService,
-        IBookingProductService bookingProductService)
+        IBookingProductService bookingProductService,
+        IProductAttributeService productAttributeService,
+        BookingManagementSettings bookingManagementSettings,
+        IProductAttributeParser productAttributeParser)
     {
         _productService = productService;
         _httpContextAccessor = httpContextAccessor;
         _languageService = languageService;
         _localizedEntityService = localizedEntityService;
         _bookingProductService = bookingProductService;
+        _productAttributeService = productAttributeService;
+        _bookingManagementSettings = bookingManagementSettings;
+        _productAttributeParser = productAttributeParser;
     }
 
     #endregion
@@ -93,7 +102,12 @@ public class EventConsumer : IConsumer<ModelReceivedEvent<BaseNopModel>>
         else
             await CreateOrUpdateBookingProductAsync(isBookingProductExists);
 
+        var attributes = await _productAttributeService.GetProductAttributeMappingsByProductIdAsync(entity.Id).Result.Where(pam => pam.ProductAttributeId == _bookingManagementSettings.BookBySlotAttributeId).ToListAsync();
 
+        if (attributes.Any())
+        {
+            var productAttributeValue = await _productAttributeService.GetProductAttributeValuesAsync(attributes[0].Id);
+        }
     }
 
     #endregion
