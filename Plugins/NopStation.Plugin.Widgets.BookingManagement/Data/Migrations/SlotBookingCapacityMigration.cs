@@ -7,7 +7,7 @@ using NopStation.Plugin.Widgets.BookingManagement.Domains;
 
 namespace NopStation.Plugin.Widgets.BookingManagement.Data.Migrations;
 [NopSchemaMigration("2025/09/16 10:47:52:1687541", "Booking Slot Capacity create table schema migration", MigrationProcessType.Update)]
-public class BookingSlotCapacityMigration : ForwardOnlyMigration
+public class SlotBookingCapacityMigration : ForwardOnlyMigration
 {
     public static string TableName<T>() where T : BaseEntity
     {
@@ -15,7 +15,7 @@ public class BookingSlotCapacityMigration : ForwardOnlyMigration
     }
     public override void Up()
     {
-        if (!Schema.Table(TableName<BookingSlotCapacity>()).Exists())
-            Create.TableFor<BookingSlotCapacity>();
+        if (!Schema.Table(TableName<SlotBookingCapacity>()).Exists())
+            Create.TableFor<SlotBookingCapacity>();
     }
 }

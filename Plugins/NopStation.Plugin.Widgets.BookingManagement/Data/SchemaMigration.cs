@@ -13,6 +13,6 @@ public class SchemaMigration : AutoReversingMigration
         Create.TableFor<BookingProduct>();
         Create.TableFor<DailyBookingProduct>();
         Create.TableFor<SlotBookingProduct>();
-        Create.TableFor<BookingSlotCapacity>();
+        Create.TableFor<SlotBookingCapacity>();
     }
 }

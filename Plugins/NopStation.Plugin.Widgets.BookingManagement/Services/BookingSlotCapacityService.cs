@@ -2,52 +2,52 @@
 using NopStation.Plugin.Widgets.BookingManagement.Domains;
 
 namespace NopStation.Plugin.Widgets.BookingManagement.Services;
-public class BookingSlotCapacityService : IBookingSlotCapacityService
+public class SlotBookingCapacityService : ISlotBookingCapacityService
 {
     #region Fields
 
-    private readonly IRepository<BookingSlotCapacity> _bookingSlotCapacityRepository;
+    private readonly IRepository<SlotBookingCapacity> _slotBookingCapacityRepository;
 
     #endregion
 
     #region Ctor
 
-    public BookingSlotCapacityService(IRepository<BookingSlotCapacity> bookingSlotCapacityRepository)
+    public SlotBookingCapacityService(IRepository<SlotBookingCapacity> slotBookingCapacityRepository)
     {
-        _bookingSlotCapacityRepository = bookingSlotCapacityRepository;
+        _slotBookingCapacityRepository = slotBookingCapacityRepository;
     }
 
     #endregion
 
     #region Methods
 
-    public async Task DeleteBookingSlotCapacityAsync(BookingSlotCapacity bookingSlotCapacity)
+    public async Task DeleteSlotBookingCapacityAsync(SlotBookingCapacity slotBookingCapacity)
     {
-        ArgumentNullException.ThrowIfNullOrEmpty(nameof(bookingSlotCapacity));
-        await _bookingSlotCapacityRepository.DeleteAsync(bookingSlotCapacity);
+        ArgumentNullException.ThrowIfNullOrEmpty(nameof(slotBookingCapacity));
+        await _slotBookingCapacityRepository.DeleteAsync(slotBookingCapacity);
     }
 
-    public async Task<BookingSlotCapacity> GetBookingSlotCapacityByIdAsync(int bookingSlotCapacityId)
+    public async Task<SlotBookingCapacity> GetSlotBookingCapacityByIdAsync(int slotBookingCapacityId)
     {
-        return await _bookingSlotCapacityRepository.Table.FirstAsync(bsc => bsc.Id == bookingSlotCapacityId);
+        return await _slotBookingCapacityRepository.Table.FirstAsync(bsc => bsc.Id == slotBookingCapacityId);
     }
 
-    public async Task<IList<BookingSlotCapacity>> GetBookingSlotCapacitysByProductIdAsync(int productId)
+    public async Task<IList<SlotBookingCapacity>> GetSlotBookingCapacitysByProductIdAsync(int productId)
     {
-        return await _bookingSlotCapacityRepository.Table.Where(bsc => bsc.SlotBookingProductId == productId).ToListAsync();
+        return await _slotBookingCapacityRepository.Table.Where(bsc => bsc.SlotBookingProductId == productId).ToListAsync();
     }
 
-    public async Task InsertBookingSlotCapacityAsync(BookingSlotCapacity bookingSlotCapacity)
+    public async Task InsertSlotBookingCapacityAsync(SlotBookingCapacity slotBookingCapacity)
     {
-        ArgumentNullException.ThrowIfNullOrEmpty(nameof(bookingSlotCapacity));
+        ArgumentNullException.ThrowIfNullOrEmpty(nameof(slotBookingCapacity));
 
-        await _bookingSlotCapacityRepository.InsertAsync(bookingSlotCapacity);
+        await _slotBookingCapacityRepository.InsertAsync(slotBookingCapacity);
     }
 
-    public async Task UpdateBookingSlotCapacityAsync(BookingSlotCapacity bookingSlotCapacity)
+    public async Task UpdateSlotBookingCapacityAsync(SlotBookingCapacity slotBookingCapacity)
     {
-        ArgumentNullException.ThrowIfNullOrEmpty(nameof(bookingSlotCapacity));
-        await _bookingSlotCapacityRepository.UpdateAsync(bookingSlotCapacity);
+        ArgumentNullException.ThrowIfNullOrEmpty(nameof(slotBookingCapacity));
+        await _slotBookingCapacityRepository.UpdateAsync(slotBookingCapacity);
     }
 
     #endregion

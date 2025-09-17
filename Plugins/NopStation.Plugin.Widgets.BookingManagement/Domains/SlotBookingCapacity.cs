@@ -1,7 +1,7 @@
 ﻿using Nop.Core;
 
 namespace NopStation.Plugin.Widgets.BookingManagement.Domains;
-public class BookingSlotCapacity : BaseEntity
+public class SlotBookingCapacity : BaseEntity
 {
     public int ProductId { get; set; }
     public int SlotBookingProductId { get; set; }

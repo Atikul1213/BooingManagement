@@ -18,7 +18,8 @@ public class PluginNopStartup : INopStartup
         services.AddScoped<IBookingProductModelFactory, BookingProductModelFactory>();
         services.AddScoped<IDailyBookingProductService, DailyBookingProductService>();
         services.AddScoped<ISlotBookingProductService, SlotBookingProductService>();
-        services.AddScoped<IBookingSlotCapacityService, BookingSlotCapacityService>();
+        services.AddScoped<ISlotBookingCapacityService, SlotBookingCapacityService>();
+        services.AddScoped<IDailyBookingCapacityService, DailyBookingCapacityService>();
 
     }
 

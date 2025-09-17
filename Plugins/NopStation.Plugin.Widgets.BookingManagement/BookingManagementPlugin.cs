@@ -111,6 +111,16 @@ public class BookingManagementPlugin : BasePlugin, IWidgetPlugin, INopStationPlu
             ["Admin.NopStation.BookingManagement.Configuration.Fields.BookBySlotAttributeId"] = "Book by slot attribute id",
             ["Admin.NopStation.BookingManagement.Configuration.Fields.BookBySlotAttributeId.Hint"] = "Select book by slot attribute id",
 
+            ["Admin.NopStation.BookingManagement.DailyBookingCapacityModel.Fields.DeliverySlot"] = "Delivery slot",
+            ["Admin.NopStation.BookingManagement.DailyBookingCapacityModel.Fields.Day1Capacity"] = "Sunday",
+            ["Admin.NopStation.BookingManagement.DailyBookingCapacityModel.Fields.Day2Capacity"] = "Monday",
+            ["Admin.NopStation.BookingManagement.DailyBookingCapacityModel.Fields.Day3Capacity"] = "Tuesday",
+            ["Admin.NopStation.BookingManagement.DailyBookingCapacityModel.Fields.Day4Capacity"] = "Wednesday",
+            ["Admin.NopStation.BookingManagement.DailyBookingCapacityModel.Fields.Day5Capacity"] = "Thursday",
+            ["Admin.NopStation.BookingManagement.DailyBookingCapacityModel.Fields.Day6Capacity"] = "Friday",
+            ["Admin.NopStation.BookingManagement.DailyBookingCapacityModel.Fields.Day7Capacity"] = "Saturday",
+            ["Admin.NopStation.BookingManagement.DailyBookingCapacityModel.DaysOfWeek"] = "Days of week",
+
 
         };
 

@@ -10,7 +10,8 @@ public class BaseNameCompatibility : INameCompatibility
         { typeof(BookingProduct), "NS_BookingProduct" },
         { typeof(DailyBookingProduct), "NS_DailyBookingProduct" },
         { typeof(SlotBookingProduct), "NS_SlotBookingProduct" },
-        { typeof(BookingSlotCapacity), "NS_BookingSlotCapacity" },
+        { typeof(SlotBookingCapacity), "NS_SlotBookingCapacity" },
+        { typeof(DailyBookingCapacity), "NS_DailyBookingCapacity" },
 
     };
 
