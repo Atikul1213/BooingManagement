@@ -33,9 +33,13 @@ public class DailyBookingProductService : IDailyBookingProductService
         return await _dailyBookingProductRepository.Table.FirstOrDefaultAsync(dbp => dbp.Id == dailyBookingProductId);
     }
 
-    public async Task<IList<DailyBookingProduct>> GetDailyBookingProductsByProductIdAsync(int productId)
+    public async Task<List<DailyBookingProduct>> GetDailyBookingProductsByProductIdAsync(int productId)
     {
-        return await _dailyBookingProductRepository.Table.Where(dbp => dbp.ProductId == productId).ToListAsync();
+        var query = _dailyBookingProductRepository.Table.Where(dbp => dbp.ProductId == productId);
+        if (!query.Any())
+            return new List<DailyBookingProduct>();
+
+        return await query.ToListAsync();
     }
 
     public async Task InsertDailyBookingProductAsync(DailyBookingProduct dailyBookingProduct)

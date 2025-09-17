@@ -8,7 +8,7 @@ public class BookingSlotCapacityBuilder : NopEntityBuilder<BookingSlotCapacity>
     public override void MapEntity(CreateTableExpressionBuilder table)
     {
         table
-            .WithColumn(nameof(BookingSlotCapacity.Id)).AsInt32().PrimaryKey()
+            .WithColumn(nameof(BookingSlotCapacity.Id)).AsInt32().PrimaryKey().Identity()
             .WithColumn(nameof(BookingSlotCapacity.ProductId)).AsInt32().NotNullable()
             .WithColumn(nameof(BookingSlotCapacity.SlotBookingProductId)).AsInt32().NotNullable();
     }

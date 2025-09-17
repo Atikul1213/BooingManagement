@@ -10,5 +10,5 @@ public interface IDailyBookingProductService
     Task UpdateDailyBookingProductAsync(DailyBookingProduct dailyBookingProduct);
 
     Task<DailyBookingProduct> GetDailyBookingProductByIdAsync(int dailyBookingProductId);
-    Task<IList<DailyBookingProduct>> GetDailyBookingProductsByProductIdAsync(int productId);
+    Task<List<DailyBookingProduct>> GetDailyBookingProductsByProductIdAsync(int productId);
 }

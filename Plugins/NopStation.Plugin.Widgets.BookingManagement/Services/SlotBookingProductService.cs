@@ -43,6 +43,16 @@ public class SlotBookingProductService : ISlotBookingProductService
         await _slotBookingProductRepository.InsertAsync(slotBookingProduct);
     }
 
+    public async Task<bool> IsExistSlotBookingProductsBySlotTimeAndProductIdAsycn(int productId = 0, DateTime startTime = default, DateTime endTime = default)
+    {
+        var query = _slotBookingProductRepository.Table
+       .Where(sbp => sbp.ProductId == productId
+                  && sbp.StartTime == startTime
+                  && sbp.EndTime == endTime);
+
+        return await query.AnyAsync();
+    }
+
     public async Task UpdateSlotBookingProductAsync(SlotBookingProduct slotBookingProduct)
     {
         ArgumentNullException.ThrowIfNullOrEmpty(nameof(slotBookingProduct));

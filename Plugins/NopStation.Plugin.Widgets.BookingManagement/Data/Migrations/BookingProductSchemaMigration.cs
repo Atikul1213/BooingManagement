@@ -6,9 +6,9 @@ using Nop.Data.Migrations;
 using NopStation.Plugin.Widgets.BookingManagement.Domains;
 
 namespace NopStation.Plugin.Widgets.BookingManagement.Data.Migrations;
-[NopSchemaMigration("2025/09/16 10:49:55:1687541", "Daily Booking Product create table schema migration", MigrationProcessType.Update)]
 
-public class DailyBookingProductSchemaMigration : ForwardOnlyMigration
+[NopSchemaMigration("2025/09/17 11:47:52:1687541", "Booking Product create table schema migration", MigrationProcessType.Update)]
+public class BookingProductSchemaMigration : ForwardOnlyMigration
 {
     public static string TableName<T>() where T : BaseEntity
     {
@@ -16,7 +16,7 @@ public class DailyBookingProductSchemaMigration : ForwardOnlyMigration
     }
     public override void Up()
     {
-        if (!Schema.Table(TableName<DailyBookingProduct>()).Exists())
-            Create.TableFor<DailyBookingProduct>();
+        if (!Schema.Table(TableName<BookingProduct>()).Exists())
+            Create.TableFor<BookingProduct>();
     }
 }

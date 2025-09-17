@@ -9,7 +9,7 @@ public class BookProductsMappingBuilder : NopEntityBuilder<BookingProduct>
     public override void MapEntity(CreateTableExpressionBuilder table)
     {
         table
-            .WithColumn(nameof(BookingProduct.Id)).AsInt32().PrimaryKey()
+            .WithColumn(nameof(BookingProduct.Id)).AsInt32().PrimaryKey().Identity()
             .WithColumn(nameof(BookingProduct.ProductId)).AsInt32().NotNullable()
             .WithColumn(nameof(BookingProduct.BookByDaily)).AsBoolean().Nullable()
             .WithColumn(nameof(BookingProduct.BookByTimeSlot)).AsBoolean().Nullable();
