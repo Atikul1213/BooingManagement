@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Nop.Core.Infrastructure.Mapper;
 using NopStation.Plugin.Widgets.BookingManagement.Areas.Admin.Models;
+using NopStation.Plugin.Widgets.BookingManagement.Areas.Admin.Models.DailyBookingCapacity;
 using NopStation.Plugin.Widgets.BookingManagement.Domains;
 
 namespace NopStation.Plugin.Widgets.BookingManagement.Areas.Admin.Infrastructure;
@@ -13,5 +14,6 @@ public class MapperConfiguration : Profile, IOrderedMapperProfile
     {
         CreateMap<ConfigurationModel, BookingManagementSettings>().ReverseMap();
         CreateMap<BookingProduct, BookingProductModel>().ReverseMap();
+        CreateMap<DailyBookingCapacity, DailyBookingCapacityModel>().ReverseMap();
     }
 }

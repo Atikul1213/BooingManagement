@@ -11,4 +11,5 @@ public interface IBookingProductService
 
     Task<BookingProduct> GetBookingProductByIdAsync(int bookingProductId);
     Task<BookingProduct> GetBookingProductByProductIdAsync(int productId);
+    Task<IList<int>> GetAllDailyBookingProductProductIdsAsync();
 }

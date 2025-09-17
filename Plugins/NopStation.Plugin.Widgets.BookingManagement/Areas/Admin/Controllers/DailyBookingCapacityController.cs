@@ -1,126 +1,107 @@
-﻿//using Microsoft.AspNetCore.Http;
-//using Microsoft.AspNetCore.Mvc;
-//using Nop.Core;
-//using Nop.Services.Localization;
-//using Nop.Services.Messages;
-//using Nop.Services.Security;
-//using Nop.Services.Shipping;
-//using NopStation.Plugin.Misc.Core.Controllers;
-//using NopStation.Plugin.Misc.Core.Filters;
+﻿using Microsoft.AspNetCore.Mvc;
+using Nop.Core;
+using Nop.Services.Catalog;
+using Nop.Services.Localization;
+using Nop.Services.Messages;
+using Nop.Services.Security;
+using Nop.Services.Shipping;
+using Nop.Web.Areas.Admin.Infrastructure.Mapper.Extensions;
+using NopStation.Plugin.Misc.Core.Controllers;
+using NopStation.Plugin.Misc.Core.Filters;
+using NopStation.Plugin.Widgets.BookingManagement.Areas.Admin.Factories;
+using NopStation.Plugin.Widgets.BookingManagement.Areas.Admin.Models.DailyBookingCapacity;
+using NopStation.Plugin.Widgets.BookingManagement.Domains;
+using NopStation.Plugin.Widgets.BookingManagement.Services;
 
-//namespace NopStation.Plugin.Widgets.BookingManagement.Areas.Admin.Controllers;
-//public class DailyBookingCapacityController : NopStationAdminController
-//{
-//    private readonly IPermissionService _permissionService;
-//    private readonly IDeliveryCapacityModelFactory _deliveryCapacityModelFactory;
-//    private readonly INotificationService _notificationService;
-//    private readonly ILocalizationService _localizationService;
-//    private readonly IShippingService _shippingService;
-//    private readonly IDeliverySlotService _deliverySlotService;
-//    private readonly IDeliveryCapacityService _deliveryCapacityService;
-//    private readonly IStoreContext _storeContext;
+namespace NopStation.Plugin.Widgets.BookingManagement.Areas.Admin.Controllers;
+public class DailyBookingCapacityController : NopStationAdminController
+{
+    #region Fields
 
-//    public DailyBookingCapacityController(IPermissionService permissionService,
-//        IDeliveryCapacityModelFactory deliveryCapacityModelFactory,
-//        INotificationService notificationService,
-//        ILocalizationService localizationService,
-//        IShippingService shippingService,
-//        IDeliverySlotService deliverySlotService,
-//        IDeliveryCapacityService deliveryCapacityService,
-//        IStoreContext storeContext)
-//    {
-//        _permissionService = permissionService;
-//        _deliveryCapacityModelFactory = deliveryCapacityModelFactory;
-//        _notificationService = notificationService;
-//        _localizationService = localizationService;
-//        _shippingService = shippingService;
-//        _deliverySlotService = deliverySlotService;
-//        _deliveryCapacityService = deliveryCapacityService;
-//        _storeContext = storeContext;
-//    }
+    private readonly IPermissionService _permissionService;
+    private readonly INotificationService _notificationService;
+    private readonly ILocalizationService _localizationService;
+    private readonly IShippingService _shippingService;
+    private readonly IStoreContext _storeContext;
+    private readonly IProductService _productService;
+    private readonly IDailyCapacityModelFactory _dailyCapacityModelFactory;
+    private readonly IDailyBookingCapacityService _dailyBookingCapacityService;
 
-//    protected int GetSlotCapacity(IFormCollection form, int slotId, int weekOfDay)
-//    {
-//        var key = $"Capacity_{slotId}_{weekOfDay}";
-//        if (form.ContainsKey(key) && int.TryParse(form[key].ToString(), out var cap))
-//            return cap;
+    #endregion
 
-//        return 0;
-//    }
+    #region Ctor
 
-//    public async Task<IActionResult> Configure(int shippingMethodId = 0)
-//    {
-//        if (!await _permissionService.AuthorizeAsync(DeliverySchedulerPermissionProvider.MANAGE_DELIVERY_CAPACITY))
-//            return AccessDeniedView();
+    public DailyBookingCapacityController(IPermissionService permissionService,
+        INotificationService notificationService,
+        ILocalizationService localizationService,
+        IShippingService shippingService,
+        IStoreContext storeContext,
+        IProductService productService,
+        IDailyCapacityModelFactory dailyCapacityModelFactory,
+        IDailyBookingCapacityService dailyBookingCapacityService)
+    {
+        _permissionService = permissionService;
+        _notificationService = notificationService;
+        _localizationService = localizationService;
+        _shippingService = shippingService;
+        _storeContext = storeContext;
+        _productService = productService;
+        _dailyCapacityModelFactory = dailyCapacityModelFactory;
+        _dailyBookingCapacityService = dailyBookingCapacityService;
+    }
 
-//        var shippingMethod = await _shippingService.GetShippingMethodByIdAsync(shippingMethodId);
-//        if (shippingMethod == null)
-//        {
-//            var shippingMethods = await _shippingService.GetAllShippingMethodsAsync();
-//            shippingMethod = shippingMethods.FirstOrDefault();
-//        }
+    #endregion
 
-//        if (shippingMethod == null)
-//        {
-//            _notificationService.ErrorNotification(await _localizationService.GetResourceAsync("Admin.NopStation.DeliveryScheduler.DeliveryCapacities.NoShippingMethod"));
-//            return View(new DeliveryCapacityConfigurationModel());
-//        }
+    #region Methods
 
-//        var model = await _deliveryCapacityModelFactory.PrepareConfigurationModelAsync(shippingMethod);
-//        return View(model);
-//    }
+    public async Task<IActionResult> Configure(int productId = 0)
+    {
+        if (!await _permissionService.AuthorizeAsync(BookingManagementPermissionProvider.MANAGE_BOOKING_CAPACITY))
+            return AccessDeniedView();
 
-//    [EditAccess, HttpPost]
-//    public async Task<IActionResult> Configure(int shippingMethodId, IFormCollection form)
-//    {
-//        if (!await _permissionService.AuthorizeAsync(DeliverySchedulerPermissionProvider.MANAGE_DELIVERY_CAPACITY))
-//            return AccessDeniedView();
+        var product = await _productService.GetProductByIdAsync(productId);
 
-//        var shippingMethod = await _shippingService.GetShippingMethodByIdAsync(shippingMethodId);
-//        if (shippingMethod == null)
-//        {
-//            _notificationService.ErrorNotification(await _localizationService.GetResourceAsync("Admin.NopStation.DeliveryScheduler.DeliveryCapacities.NoShippingMethod"));
-//            return RedirectToAction("Configure");
-//        }
 
-//        var storeScope = await _storeContext.GetActiveStoreScopeConfigurationAsync();
-//        var slots = await _deliverySlotService.SearchDeliverySlotsAsync(storeId: storeScope);
-//        foreach (var slot in slots)
-//        {
-//            var capacity = await _deliveryCapacityService.GetDeliveryCapacityAsync(slot.Id, shippingMethodId);
-//            if (capacity == null)
-//            {
-//                capacity = new Domains.DeliveryCapacity()
-//                {
-//                    Day1Capacity = GetSlotCapacity(form, slot.Id, 1),
-//                    Day2Capacity = GetSlotCapacity(form, slot.Id, 2),
-//                    Day3Capacity = GetSlotCapacity(form, slot.Id, 3),
-//                    Day4Capacity = GetSlotCapacity(form, slot.Id, 4),
-//                    Day5Capacity = GetSlotCapacity(form, slot.Id, 5),
-//                    Day6Capacity = GetSlotCapacity(form, slot.Id, 6),
-//                    Day7Capacity = GetSlotCapacity(form, slot.Id, 7),
-//                    ShippingMethodId = shippingMethodId,
-//                    DeliverySlotId = slot.Id
-//                };
-//                await _deliveryCapacityService.InsertDeliveryCapacityAsync(capacity);
-//            }
-//            else
-//            {
-//                capacity.Day1Capacity = GetSlotCapacity(form, slot.Id, 1);
-//                capacity.Day2Capacity = GetSlotCapacity(form, slot.Id, 2);
-//                capacity.Day3Capacity = GetSlotCapacity(form, slot.Id, 3);
-//                capacity.Day4Capacity = GetSlotCapacity(form, slot.Id, 4);
-//                capacity.Day5Capacity = GetSlotCapacity(form, slot.Id, 5);
-//                capacity.Day6Capacity = GetSlotCapacity(form, slot.Id, 6);
-//                capacity.Day7Capacity = GetSlotCapacity(form, slot.Id, 7);
-//                capacity.ShippingMethodId = shippingMethodId;
-//                capacity.DeliverySlotId = slot.Id;
+        var model = await _dailyCapacityModelFactory.PrepareDailyBookingCapacityModelAsync(productId);
+        return View(model);
+    }
 
-//                await _deliveryCapacityService.UpdateDeliveryCapacityAsync(capacity);
-//            }
-//        }
+    [EditAccess, HttpPost]
+    public async Task<IActionResult> Configure(DailyBookingCapacityModel model)
+    {
+        if (!await _permissionService.AuthorizeAsync(BookingManagementPermissionProvider.MANAGE_BOOKING_CAPACITY))
+            return AccessDeniedView();
 
-//        _notificationService.SuccessNotification(await _localizationService.GetResourceAsync("Admin.NopStation.DeliveryScheduler.DeliveryCapacities.Updated"));
-//        return RedirectToAction("Configure", new { shippingMethodId = shippingMethodId });
-//    }
-//}
+        var product = await _productService.GetProductByIdAsync(model.ProductId);
+        if (product == null)
+        {
+            _notificationService.ErrorNotification(await _localizationService.GetResourceAsync("NopStation.Plugin.Widgets.BookingManagement.DailyBookingCapacity.Product.NotFound"));
+            return RedirectToAction("Configure");
+        }
+
+        var prevDailyBookingCapacity = await _dailyBookingCapacityService.GetDailyBookingCapacitysByProductIdAsync(model.ProductId);
+
+        if (prevDailyBookingCapacity == null)
+        {
+            var dailyBookingCapacity = model.ToEntity<DailyBookingCapacity>();
+            await _dailyBookingCapacityService.InsertDailyBookingCapacityAsync(dailyBookingCapacity);
+        }
+        else
+        {
+            prevDailyBookingCapacity.Day1Capacity = model.Day1Capacity;
+            prevDailyBookingCapacity.Day2Capacity = model.Day2Capacity;
+            prevDailyBookingCapacity.Day3Capacity = model.Day3Capacity;
+            prevDailyBookingCapacity.Day4Capacity = model.Day4Capacity;
+            prevDailyBookingCapacity.Day5Capacity = model.Day5Capacity;
+            prevDailyBookingCapacity.Day6Capacity = model.Day6Capacity;
+            prevDailyBookingCapacity.Day7Capacity = model.Day7Capacity;
+
+            await _dailyBookingCapacityService.UpdateDailyBookingCapacityAsync(prevDailyBookingCapacity);
+        }
+
+        _notificationService.SuccessNotification(await _localizationService.GetResourceAsync("NopStation.Plugin.Widgets.BookingManagement.DailyBookingCapacity.Product.Updated"));
+        return RedirectToAction("Configure", new { productId = product.Id });
+    }
+
+    #endregion
+}

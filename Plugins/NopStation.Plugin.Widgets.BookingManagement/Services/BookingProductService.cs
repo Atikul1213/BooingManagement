@@ -27,6 +27,13 @@ public class BookingProductService : IBookingProductService
         await _bookingProductRepository.DeleteAsync(bookingProduct);
     }
 
+    public async Task<IList<int>> GetAllDailyBookingProductProductIdsAsync()
+    {
+        var query = _bookingProductRepository.Table.Where(bp => bp.BookByDaily).Select(bp => bp.ProductId);
+
+        return await query.ToListAsync();
+    }
+
     public async Task<BookingProduct> GetBookingProductByIdAsync(int bookingProductId)
     {
         return await _bookingProductRepository.GetByIdAsync(bookingProductId);

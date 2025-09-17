@@ -51,13 +51,26 @@ public class AdminMenuCreatedEventConsumer : IConsumer<AdminMenuEvent>
 
         if (await _permissionService.AuthorizeAsync(BookingManagementPermissionProvider.MANAGE_BOOKING_CAPACITY))
         {
-            var manageDeliveryDateSlot = new AdminMenuItem()
+            var manageDeliveryDailyCapacities = new AdminMenuItem()
             {
-                Title = await _localizationService.GetResourceAsync("Admin.NopStation.BookingManagement.Menu.BookingCapacities"),
-                Url = "~/Admin/BookingCapacity/Configure",
+                Title = await _localizationService.GetResourceAsync("Admin.NopStation.BookingManagement.Menu.DailyBookingCapacities"),
+                Url = "~/Admin/DailyBookingCapacity/Configure",
                 Visible = true,
                 IconClass = "far fa-circle",
-                SystemName = "BookingManagement.BookingCapacities"
+                SystemName = "BookingManagement.DailyBookingCapacities"
+            };
+            menuItem.ChildNodes.Add(manageDeliveryDailyCapacities);
+        }
+
+        if (await _permissionService.AuthorizeAsync(BookingManagementPermissionProvider.MANAGE_BOOKING_CAPACITY))
+        {
+            var manageDeliveryDateSlot = new AdminMenuItem()
+            {
+                Title = await _localizationService.GetResourceAsync("Admin.NopStation.BookingManagement.Menu.SlotBookingCapacities"),
+                Url = "~/Admin/SlotBookingCapacity/Configure",
+                Visible = true,
+                IconClass = "far fa-circle",
+                SystemName = "BookingManagement.SlotBookingCapacities"
             };
             menuItem.ChildNodes.Add(manageDeliveryDateSlot);
         }

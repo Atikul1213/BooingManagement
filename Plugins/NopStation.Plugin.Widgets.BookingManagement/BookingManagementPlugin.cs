@@ -105,7 +105,7 @@ public class BookingManagementPlugin : BasePlugin, IWidgetPlugin, INopStationPlu
             ["Admin.NopStation.BookingManagement.Tab.Enable"] = "Enable product booking",
             ["Admin.NopStation.BookingManagement.Menu.BookingManagement"] = "Booking management",
             ["Admin.NopStation.BookingManagement.Menu.Configuration"] = "Configuration",
-            ["Admin.NopStation.BookingManagement.Menu.BookingCapacities"] = "Booking capacities",
+            ["Admin.NopStation.BookingManagement.Menu.SlotBookingCapacities"] = "Slot booking capacities",
             ["Admin.NopStation.BookingManagement.Configuration.Fields.BookByDailyAttributeId"] = "Book by daily attribute id",
             ["Admin.NopStation.BookingManagement.Configuration.Fields.BookByDailyAttributeId.Hint"] = "Select book by daily attribute id",
             ["Admin.NopStation.BookingManagement.Configuration.Fields.BookBySlotAttributeId"] = "Book by slot attribute id",
@@ -120,7 +120,13 @@ public class BookingManagementPlugin : BasePlugin, IWidgetPlugin, INopStationPlu
             ["Admin.NopStation.BookingManagement.DailyBookingCapacityModel.Fields.Day6Capacity"] = "Friday",
             ["Admin.NopStation.BookingManagement.DailyBookingCapacityModel.Fields.Day7Capacity"] = "Saturday",
             ["Admin.NopStation.BookingManagement.DailyBookingCapacityModel.DaysOfWeek"] = "Days of week",
-
+            ["Admin.NopStation.BookingManagement.DailyBookingCapacityConfigurationModel.Fields.ProductId"] = "Select Product",
+            ["Admin.NopStation.BookingManagement.DailyBookingCapacityConfigurationModel.Fields.ProductId.Hint"] = "Select product for the daily capacity",
+            ["NopStation.Plugin.Widgets.BookingManagement.DailyBookingCapacity.Product.NotFound"] = "No product found",
+            ["Admin.NopStation.BookingManagement.DailyCapacities"] = "Daily capacities",
+            ["Admin.NopStation.BookingManagement.Menu.DailyBookingCapacities"] = "Daily booking capacities",
+            ["NopStation.Plugin.Widgets.BookingManagement.DailyBookingCapacity.Product.Updated"] = "Daily booking capacity updated successfully",
+            ["Admin.NopStation.BookingManagement.DailyBookingCapacityModel.DaysOfWeek.Capacities"] = "Capacities",
 
         };
 
